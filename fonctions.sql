@@ -4,7 +4,7 @@ language plpgsql
 as $$
 begin
 return query
-select pays.country, pays.pop, pays.density from pays where pays.country = choix;
+select data_pays.country, data_pays.pop, data_pays.density from data_pays where data_pays.country = choix;
 end;
 $$;
 
@@ -12,7 +12,7 @@ create or replace procedure add_country(country_name text)
 language plpgsql
 as $$
 begin
-insert into pays(country, pop, density) values (country_name, 1000000 * random(), 1465 *random());
+insert into data_pays(country, pop, density) values (country_name, 1000000 * random(), 1465 *random());
 end;
 $$;
 
@@ -32,3 +32,20 @@ before insert or update
 on data_pays
 for each row
 execute procedure update_time();
+
+create or replace function class_countries()
+returns table (country_name text, density int, class text)
+language plpgsql
+as $$
+begin
+return query
+select data_pays.country, data_pays.density, CASE 
+                                when data_pays.density < 300 then 'classe 5'
+                                when data_pays.density < 600 then 'classe 4'
+                                when data_pays.density < 900 then 'classe 3'
+                                when data_pays.density < 1500 then 'classe 2'
+                                when data_pays.density < 2000 then 'classe 1'
+end as "class"
+from data_pays;
+end;
+$$;
