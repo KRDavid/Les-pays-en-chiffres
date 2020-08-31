@@ -40,12 +40,28 @@ as $$
 begin
 return query
 select data_pays.country, data_pays.density, CASE 
-                                when data_pays.density < 300 then 'classe 5'
                                 when data_pays.density < 600 then 'classe 4'
                                 when data_pays.density < 900 then 'classe 3'
                                 when data_pays.density < 1500 then 'classe 2'
-                                when data_pays.density < 2000 then 'classe 1'
+                                else 'classe 1'
 end as "class"
 from data_pays;
+end;
+$$;
+
+
+create or replace function class_country(choix text)
+returns table (country_name text, density int, class text)
+language plpgsql
+as $$
+begin
+return query
+select data_pays.country, data_pays.density, CASE 
+                                when data_pays.density < 600 then 'classe 4'
+                                when data_pays.density < 900 then 'classe 3'
+                                when data_pays.density < 1500 then 'classe 2'
+                                else 'classe 1'
+end as "class"
+from data_pays where data_pays.country = choix;
 end;
 $$;
