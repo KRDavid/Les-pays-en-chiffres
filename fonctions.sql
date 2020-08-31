@@ -1,67 +1,67 @@
-create or replace function countries(choix text)
-returns table(country text, pop int, density int) 
-language plpgsql 
-as $$
-begin
-return query
-select data_pays.country, data_pays.pop, data_pays.density from data_pays where data_pays.country = choix;
-end;
+CREATE OR REPLACE FUNCTION countries(choix TEXT)
+RETURNS TABLE(country TEXT, pop INT, density INT) 
+LANGUAGE plpgsql 
+AS $$
+BEGIN
+RETURN query
+SELECT data_pays.country, data_pays.pop, data_pays.density FROM data_pays WHERE data_pays.country = choix;
+END;
 $$;
 
-create or replace procedure add_country(country_name text)
-language plpgsql
-as $$
-begin
-insert into data_pays(country, pop, density) values (country_name, 1000000 * random(), 1465 *random());
-end;
+CREATE OR REPLACE PROCEDURE add_country(country_name TEXT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+INSERT INTO data_pays(country, pop, density) VALUES (country_name, 1000000 * random(), 1465 *random());
+END;
 $$;
 
-create or replace function update_time()
-returns trigger
-language plpgsql 
-as $$
-begin
-    NEW.date_insertion := current_timestamp;
+CREATE OR REPLACE FUNCTION update_time()
+RETURNS trigger
+LANGUAGE plpgsql 
+AS $$
+BEGIN
+    NEW.date_INSERTion := current_timestamp;
 
-return NEW;
-end;
+RETURN NEW;
+END;
 $$;
 
-create trigger country_update
-before insert or update
-on data_pays
-for each row
-execute procedure update_time();
+CREATE trigger country_update
+BEFORE INSERT OR update
+ON data_pays
+FOR EACH ROW
+execute PROCEDURE update_time();
 
-create or replace function class_countries()
-returns table (country_name text, density int, class text)
-language plpgsql
-as $$
-begin
-return query
-select data_pays.country, data_pays.density, CASE 
-                                when data_pays.density < 600 then 'classe 4'
-                                when data_pays.density < 900 then 'classe 3'
-                                when data_pays.density < 1500 then 'classe 2'
-                                else 'classe 1'
-end as "class"
-from data_pays;
-end;
+CREATE OR REPLACE FUNCTION class_countries()
+RETURNS TABLE (country_name TEXT, density INT, class TEXT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+RETURN query
+SELECT data_pays.country, data_pays.density, CASE 
+                                WHEN data_pays.density < 600 THEN 'classe 4'
+                                WHEN data_pays.density < 900 THEN 'classe 3'
+                                WHEN data_pays.density < 1500 THEN 'classe 2'
+                                ELSE 'classe 1'
+END AS "class"
+FROM data_pays;
+END;
 $$;
 
 
-create or replace function class_country(choix text)
-returns table (country_name text, density int, class text)
-language plpgsql
-as $$
-begin
-return query
-select data_pays.country, data_pays.density, CASE 
-                                when data_pays.density < 600 then 'classe 4'
-                                when data_pays.density < 900 then 'classe 3'
-                                when data_pays.density < 1500 then 'classe 2'
-                                else 'classe 1'
-end as "class"
-from data_pays where data_pays.country = choix;
-end;
+CREATE OR REPLACE FUNCTION class_country(choix TEXT)
+RETURNS TABLE (country_name TEXT, density INT, class TEXT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+RETURN query
+SELECT data_pays.country, data_pays.density, CASE 
+                                WHEN data_pays.density < 600 THEN 'classe 4'
+                                WHEN data_pays.density < 900 THEN 'classe 3'
+                                WHEN data_pays.density < 1500 THEN 'classe 2'
+                                ELSE 'classe 1'
+END AS "class"
+FROM data_pays WHERE data_pays.country = choix;
+END;
 $$;

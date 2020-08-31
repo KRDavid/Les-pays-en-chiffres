@@ -1,7 +1,7 @@
-select * from countries('votre choix ici');
+SELECT * FROM countries('votre choix ici');
 
-call add_country('le nom de la nouvelle ville');
+CALL add_country('le nom de la nouvelle ville');
 
-select * from class_countries();
+SELECT * FROM class_countries();
 
-select * from class_country('votre pays ici');
+SELECT * FROM class_country('votre pays ici');
