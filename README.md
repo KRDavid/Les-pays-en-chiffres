@@ -8,12 +8,12 @@ Le but de ce code est d'analyser les données de population des différents pays
   - Les fichiers SQL présent sur le repository
   
 # Initialisation
-- Dans la section "Browser" dans Elephant SQL, il faudra ouvrir le fichier create_table.sql et y copier son contenu.
-- Ensuite, il faudra également executer le contenu du fichier fonctions.sql dans le Browser d'ElephantSQL.
-- Enfin, executer le contenu du fichier add_countries.sql.
+- Dans la section "Browser" dans Elephant SQL, il faudra ouvrir le fichier [create_table.sql](https://github.com/KRDavid/Les-pays-en-chiffres/blob/master/create_table.sql) et y copier son contenu.
+- Ensuite, il faudra également executer le contenu du fichier [fonctions.sql](https://github.com/KRDavid/Les-pays-en-chiffres/blob/master/fonctions.sql) dans le Browser d'ElephantSQL.
+- Enfin, executer le contenu du fichier [add_countries.sql](https://github.com/KRDavid/Les-pays-en-chiffres/blob/master/add_coutnries.sql).
 
 # Utilisation
-Pour appeler les différentes fonction, il faudra entrer une des commandes suivantes dans le Browser d'ElephantSQL.
+Pour appeler les différentes fonction, il faudra entrer une des commandes suivantes dans le Browser d'ElephantSQL (également présentes dans le fichier [call_functions.sql](https://github.com/KRDavid/Les-pays-en-chiffres/blob/master/call_functions.sql).
 
   - Pour afficher les données concernant un pays choisi :
     ```sql
