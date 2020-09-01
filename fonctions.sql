@@ -21,14 +21,14 @@ RETURNS trigger
 LANGUAGE plpgsql 
 AS $$
 BEGIN
-    NEW.date_INSERTion := current_timestamp;
+    NEW.date_insertion := current_timestamp;
 
 RETURN NEW;
 END;
 $$;
 
 CREATE trigger country_update
-BEFORE INSERT OR update
+BEFORE INSERT OR UPDATE
 ON data_pays
 FOR EACH ROW
 execute PROCEDURE update_time();
